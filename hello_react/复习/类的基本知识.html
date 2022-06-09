@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hello react</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id="test"></div>
+  <!-- 引入react核心库 -->
+  <script type="text/javascript" src="../../hello_react/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type="text/javascript" src="../../hello_react/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type="text/javascript" src="../../hello_react/babel.min.js"></script>
+  <script type="text/babel">
+    // 创建一个Person类
+    class Person {
+      // 构造器方法
+      constructor(name, age){
+        this.name = name
+        this.age = age
+      }
+      speak(){
+        // speak方法放在了类的原型对象上，供实例使用
+        console.log(`我叫${this.name},我的年龄是${this.age}`);
+      }
+    }
+    // 创建一个Person的实例对象
+    const p1 = new Person('tom',25)
+    const p2 = new Person('jerry',19)
+    console.log(p1);
+    console.log(p2);
+    p1.speak()
+    p2.speak()
+  </script>
+</body>
+</html>
