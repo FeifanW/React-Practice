@@ -21,18 +21,20 @@
       constructor(props){
         super(props)
         this.state = {isHot:true}
+        this.changeWeather = this.changeWeather.bind(this)
       }
       render(){
         console.log(this);
-        return <h1 onClick={demo}>今天天气很{this.state.isHot ? '炎热' : '凉爽'}</h1>
+        return <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热' : '凉爽'}</h1>
+      }
+      changeWeather(){
+        // 类中的方法默认开启了局部的严格模式
+        console.log("标题被点击了",this);
       }
     }
     // 渲染组件到页面
     ReactDOM.render(<Weather/>,document.getElementById('test'))
 
-    function demo(){
-      console.log("标题被点击了");
-    }
     
   </script>
 </body>
