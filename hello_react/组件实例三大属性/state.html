@@ -24,11 +24,15 @@
       }
       render(){
         console.log(this);
-        return <h1>今天天气很{this.state.isHot ? '炎热' : '凉爽'}</h1>
+        return <h1 onClick={demo}>今天天气很{this.state.isHot ? '炎热' : '凉爽'}</h1>
       }
     }
     // 渲染组件到页面
     ReactDOM.render(<Weather/>,document.getElementById('test'))
+
+    function demo(){
+      console.log("标题被点击了");
+    }
     
   </script>
 </body>
