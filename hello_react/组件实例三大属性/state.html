@@ -30,6 +30,10 @@
       changeWeather(){
         // 类中的方法默认开启了局部的严格模式
         console.log("标题被点击了",this);
+        // 状态（state）不可以直接更改，需要借助一个api，而且更新是一种合并不是替换
+        const isHot = this.state.isHot
+        this.setState({isHot:!isHot})
+
       }
     }
     // 渲染组件到页面
