@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hello react</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id="test1"></div>
+  <div id="test2"></div>
+<!--  <div id="test3"></div>-->
+  <!-- 引入react核心库 -->
+  <script type="text/javascript" src="../../hello_react/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type="text/javascript" src="../../hello_react/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type="text/javascript" src="../../hello_react/babel.min.js"></script>
+<!--  引入prop-types，用户对标签属性进行限制-->
+  <script type="text/javascript" src="../../hello_react/prop-types.js"></script>
+  <script type="text/babel">
+  // 创建组件
+  //   class Person extends React.Component{
+  //     // state = {name:'tom',age:18,sex:'女'}
+  //     render(){
+  //       const {name,age,sex} = this.props
+  //       return(
+  //         <ul>
+  //           <li>姓名：{name}</li>
+  //           <li>性别：{sex}</li>
+  //           <li>年龄：{age}</li>
+  //         </ul>
+  //       )
+  //     }
+  //     static propTypes = {
+  //       name:PropTypes.string.isRequired,
+  //       sex:PropTypes.string,
+  //       // speak:PropTypes.func,   // 限制传函数
+  //     }
+  //     static defaultProps = {
+  //       sex:'不男不女',
+  //       age:18
+  //     }
+  //   }
+    // 对标签属性进行类型、必要性的限制
+    // Person.propTypes = {
+    //   name:PropTypes.string.isRequired,
+    //   sex:PropTypes.string,
+    //   speak:PropTypes.func,   // 限制传函数
+    // }
+    // // 指定默认标签属性值
+    // Person.defaultProps = {
+    //   sex:'不男不女',
+    //   age:18
+    // }
+    function Person (props){
+      console.log(props)
+      const {name,age,sex} = props
+      return(
+        <ul>
+          <li>姓名：{name}</li>
+          <li>性别：{sex}</li>
+          <li>年龄：{age}</li>
+        </ul>
+      )
+    }
+    Person.propTypes = {
+      name:PropTypes.string.isRequired,
+      sex:PropTypes.string,
+      // speak:PropTypes.func,   // 限制传函数
+    }
+    // 指定默认标签属性值
+    Person.defaultProps = {
+      sex:'不男不女',
+      age:18
+    }
+
+
+    const p = {name:'100',age:18,sex:'女'}
+    // 渲染组件到页面
+    // ReactDOM.render(<Person age="20" sex="男"/>,document.getElementById('test1'))
+    ReactDOM.render(<Person name='100' age="20" speak="1"/>,document.getElementById('test1'))
+    // ReactDOM.render(<Person {...p}/>,document.getElementById('test2'))
+    // ReactDOM.render(<Person/>,document.getElementById('test3'))
+
+
+  </script>
+</body>
+</html>
