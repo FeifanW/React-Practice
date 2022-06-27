@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hello react</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id="test"></div>
+<!--  <div id="test2"></div>-->
+<!--  <div id="test3"></div>-->
+  <!-- 引入react核心库 -->
+  <script type="text/javascript" src="../../hello_react/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type="text/javascript" src="../../hello_react/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type="text/javascript" src="../../hello_react/babel.min.js"></script>
+<!--  引入prop-types，用户对标签属性进行限制-->
+  <script type="text/javascript" src="../../hello_react/prop-types.js"></script>
+  <script type="text/babel">
+  // 创建组件
+  class Demo extends React.Component{
+    showData = ()=>{
+      console.log("点击了show",this)
+
+      const {input1} = this
+      alert(input1.value)
+
+      // const input = document.getElementById('input1')
+      // alert(input.value)
+    }
+    showData2 = () => {
+
+      const {input2} = this
+      alert(input2.value)
+
+    }
+    render(){
+      return(
+        <div>
+          <input ref={c => this.input1 = c} type="text" placeholder="点击按钮提示数据" />
+          <button onClick={this.showData}>点我提示左侧的数据</button>
+          <input ref={c => this.input2 = c} onBlur={this.showData2} type="text" />
+        </div>
+      )
+    }
+  }
+  // 渲染组件到页面
+  ReactDOM.render(<Demo/>,document.getElementById("test"))
+
+
+  </script>
+</body>
+</html>
