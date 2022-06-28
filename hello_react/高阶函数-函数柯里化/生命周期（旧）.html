@@ -35,6 +35,10 @@
       // 更新状态
       this.setState({count:count+1})
     }
+    // 卸载组件按钮的回调
+    death = () => {
+      ReactDOM.unmountComponentAtNode(document.getElementById("test"))
+    }
 
     // 组件将要挂载的钩子
     componentWillMount(){
@@ -45,11 +49,25 @@
     componentDidMount(){
       console.log("挂载完毕DidMount")
     }
+
     // 组件将要卸载
     componentWillUnmount(){
+      console.log("componentWillUnmount")
       // 清除定时器
       clearInterval(this.timer)
     }
+
+    // 控制组件更新，阀门
+    shouldComponentUpdate(){
+      console.log("shouldComponentUpdate")
+      return true
+    }
+    // 组件更新完毕的钩子
+    componentDidUpdate(){
+      console.log("componentDidUpdate")
+      return true
+    }
+
     render(){
       console.log("render了")
       const {count} = this.state
