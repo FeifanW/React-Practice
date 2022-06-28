@@ -40,6 +40,11 @@
       ReactDOM.unmountComponentAtNode(document.getElementById("test"))
     }
 
+    // 强制更新
+    force = ()=>{
+      this.forceUpdate()
+    }
+
     // 组件将要挂载的钩子
     componentWillMount(){
       console.log("将要挂载WillMount")
@@ -62,6 +67,10 @@
       console.log("shouldComponentUpdate")
       return true
     }
+
+    componentWillUpdate(){
+      console.log("componentWillUpdate")
+    }
     // 组件更新完毕的钩子
     componentDidUpdate(){
       console.log("componentDidUpdate")
@@ -75,6 +84,7 @@
         <div>
           <h2>当前求和为：{count}</h2>
           <button onClick={this.add}>点我+1</button>
+          <button onClick={this.force}>强制更新</button>
         </div>
       )
     }
