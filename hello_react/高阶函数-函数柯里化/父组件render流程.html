@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hello react</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id="test"></div>
+<!--  <div id="test2"></div>-->
+<!--  <div id="test3"></div>-->
+  <!-- 引入react核心库 -->
+  <script type="text/javascript" src="../../hello_react/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type="text/javascript" src="../../hello_react/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type="text/javascript" src="../../hello_react/babel.min.js"></script>
+<!--  引入prop-types，用户对标签属性进行限制-->
+  <script type="text/javascript" src="../../hello_react/prop-types.js"></script>
+  <script type="text/babel">
+  class A extends React.Component{
+    state = {carName:'奔驰'}
+    changeCar = ()=>{
+      this.setState({carName: '本田'})
+    }
+    render(){
+      return(
+        <div>
+          <div>我是A组件</div>
+          <button onClick={this.changeCar}>换车</button>
+          <B carName={this.state.carName}></B>
+        </div>
+      )
+    }
+  }
+  class B extends React.Component{
+    // 组件将要接收新的props钩子
+    componentWillReceiveProps(props){
+      console.log("B---componentWillReceiveProps",props)
+    }
+    shouldComponentUpdate(){
+      console.log("B---shouldComponentUpdate")
+      return true
+    }
+    componentWillUpdate(){
+      console.log("B---componentWillUpdate")
+    }
+    // 组件更新完毕的钩子
+    componentDidUpdate(){
+      console.log("B---componentDidUpdate")
+    }
+    render(){
+      console.log("B---render")
+      return(
+        <div>我是B组件，棘手的车是：{this.props.carName}</div>
+      )
+    }
+  }
+  // 渲染组件到页面
+  ReactDOM.render(<A/>,document.getElementById("test"))
+
+
+  </script>
+</body>
+</html>
