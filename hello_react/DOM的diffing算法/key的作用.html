@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hello react</title>
+  <style>
+    .list{
+      width: 200px;
+      height: 150px;
+      background: skyblue;
+      overflow: auto;
+    }
+    .news{
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id="test"></div>
+<!--  <div id="test2"></div>-->
+<!--  <div id="test3"></div>-->
+  <!-- 引入react核心库 -->
+  <script type="text/javascript" src="../../hello_react/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type="text/javascript" src="../../hello_react/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type="text/javascript" src="../../hello_react/babel.min.js"></script>
+<!--  引入prop-types，用户对标签属性进行限制-->
+  <script type="text/javascript" src="../../hello_react/prop-types.js"></script>
+  <script type="text/babel">
+  // 创建组件
+  class Demo extends React.Component{
+    state = {
+      persons:[
+        {id:1,name:'小张',age:18},
+        {id:2,name:'小李',age:20},
+      ]
+    }
+
+    add = ()=>{
+      const {persons} = this.state
+      const p = {id:persons.length+1,name:'小王',age:20}
+      this.setState({persons:[p,...persons]})
+    }
+
+    render(){
+      console.log("render了")
+      const {count} = this.state
+      return(
+        <div>
+          <h2>展示人员信息</h2>
+          <button onClick={this.add}>添加一个小王</button>
+          <ul>
+            {
+              this.state.persons.map((personObj,index)=>{
+                return <li key={index}>{personObj.name}---{personObj.age}</li>
+              })
+            }
+          </ul>
+        </div>
+      )
+    }
+  }
+  // 渲染组件到页面
+  ReactDOM.render(<Demo/>,document.getElementById("test"))
+
+
+  </script>
+</body>
+</html>
