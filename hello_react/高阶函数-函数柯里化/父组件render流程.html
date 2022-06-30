@@ -37,14 +37,14 @@
   }
   class B extends React.Component{
     // 组件将要接收新的props钩子
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
       console.log("B---componentWillReceiveProps",props)
     }
     shouldComponentUpdate(){
       console.log("B---shouldComponentUpdate")
       return true
     }
-    componentWillUpdate(){
+    UNSAFE_componentWillUpdate(){
       console.log("B---componentWillUpdate")
     }
     // 组件更新完毕的钩子
