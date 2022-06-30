@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import Hello from './components/hello'
+import Welcome from './components/welcome/welcome'
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+          <Hello></Hello>
+          <Welcome></Welcome>
         </a>
       </header>
     </div>
