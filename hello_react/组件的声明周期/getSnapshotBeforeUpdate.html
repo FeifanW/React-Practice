@@ -5,6 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>hello react</title>
+  <style>
+    .list{
+      width: 200px;
+      height: 150px;
+      background: skyblue;
+      overflow: auto;
+    }
+    .news{
+      height: 30px;
+    }
+  </style>
 </head>
 <body>
   <!-- 准备好一个容器 -->
@@ -22,12 +33,16 @@
   <script type="text/babel">
   // 创建组件
   class Demo extends React.Component{
+    state = {newsArr:[]}
+
+
+
     // 构造器
-    constructor(props) {
-      console.log("Count-constructor")
-      super(props);
-      this.state = {count:0}
-    }
+    // constructor(props) {
+    //   console.log("Count-constructor")
+    //   super(props);
+    //   this.state = {count:0}
+    // }
 
     add = ()=>{
       //获取原状态
@@ -53,6 +68,14 @@
     // 组件挂载完毕
     componentDidMount(){
       console.log("挂载完毕DidMount")
+      setInterval(()=>{
+        // 获取原状态
+        const {newsArr} = this.state
+        // 模拟一条新闻
+        const news = '新闻' + (newsArr.length+1)
+        // 更新状态
+        this.setState({newsArr:[news,...newsArr]})
+      },1000)
     }
 
     // 组件将要卸载
@@ -67,32 +90,38 @@
       console.log("shouldComponentUpdate")
       return true
     }
+    //
+    // getSnapshotBeforeUpdate(){
+    //   console.log("getSnapshotBeforeUpdate")
+    //   return 'hello world'
+    // }
 
     getSnapshotBeforeUpdate(){
-      console.log("getSnapshotBeforeUpdate")
-      return 'hello world'
+      return this.refs.list.scrollHeight
     }
 
     // 组件更新完毕的钩子
-    componentDidUpdate(preProps,preState,snapShotValue){
-      console.log("componentDidUpdate",preProps,preState,snapShotValue)
-      return true
+    componentDidUpdate(preProps,preState,height){
+      this.refs.list.scrollTop += this.refs.list.scrollHeight - height
     }
+
 
     render(){
       console.log("render了")
       const {count} = this.state
       return(
-        <div>
-          <h2>当前求和为：{count}</h2>
-          <button onClick={this.add}>点我+1</button>
-          <button onClick={this.force}>强制更新</button>
+        <div className="list" ref="list">
+          {
+            this.state.newsArr.map((n)=>{
+              return <div className="news">{n}</div>
+            })
+          }
         </div>
       )
     }
   }
   // 渲染组件到页面
-  ReactDOM.render(<Demo count="199" />,document.getElementById("test"))
+  ReactDOM.render(<Demo/>,document.getElementById("test"))
 
 
   </script>
