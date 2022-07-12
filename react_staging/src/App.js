@@ -1,37 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-import Hello from './components/hello/hello'
-import Welcome from './components/welcome/welcome'
+import React, {Component} from 'react'
+import axios from 'axios'
 
-function App() {
-
-    const todos = [
-      {id:1,name:'吃饭',done:true},
-      {id:2,name:'吃饭',done:true},
-      {id:3,name:'吃饭',done:true},
-      {id:4,name:'吃饭',done:true},
-    ]
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-          <Hello a={'hhhhh'}></Hello>
-          <Welcome todos={todos}></Welcome>
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+    getStudentData = () => {
+        // axios.get('http://localhost:3000/index.html').then(
+        axios.get('http://localhost:3000/students').then(
+            response => { console.log('成功了', response.data)},
+            error => { console.log('失败了',error)}
+        )
+    }
+    render() {
+        return(
+            <div>
+                <button onClick={this.getStudentData}>点我获取一些学生数据</button>
+            </div>
+        )
+    }
 }
-
-export default App;
