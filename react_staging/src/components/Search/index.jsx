@@ -9,7 +9,10 @@ class Search extends Component {
         console.log("value",value)
         // 发送网络请求
         axios.get(`http://localhost:3000/api1/search/users?q=${value}`).then(
-            response => {console.log('成功了', response.data)},
+            response => {
+                console.log('成功了', response.data)
+                this.props.saveUsers(response.data.items)
+            },
             error => {console.log('失败了', error)}
         )
     }
