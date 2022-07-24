@@ -1,33 +1,25 @@
 import React, {Component} from 'react';
-import PubSub from 'pubsub-js'
 import axios from 'axios'
 
 class Search extends Component {
     search = ()=>{
-        // PubSub.publish('wangwangdui',{name:'tom',age:'18'})
-
-
-
         // 获取用户的输入
         // console.log(this.keyWordElement.value)
         const {keyWordElement:{value}} = this
         // 发送请求前通知app更新状态
-        // this.props.updateAppState({isFirst: false,isLoading: true})
-        PubSub.publish('wangwangdui',{isFirst: false,isLoading: true})
+        this.props.updateAppState({isFirst: false,isLoading: true})
         console.log("value",value)
         // 发送网络请求
         axios.get(`http://localhost:3000/api1/search/users?q=${value}`).then(
             response => {
                 console.log('成功了', response.data)
                 // 请求成功后通知app更新状态
-                // this.props.updateAppState({isLoading: false, users:response.data.items})
-                PubSub.publish('wangwangdui',{isLoading: false, users:response.data.items})
+                this.props.updateAppState({isLoading: false, users:response.data.items})
             },
             error => {
                 console.log('失败了', error)
                 // 请求失败后通知APP更新状态
-                // this.props.updateAppState({isLoading: false, err:error.message})
-                PubSub.publish('wangwangdui',{isLoading: false, err:error.message})
+                this.props.updateAppState({isLoading: false, err:error.message})
             }
         )
     }
