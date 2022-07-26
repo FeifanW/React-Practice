@@ -22,6 +22,7 @@ class List extends Component {
     }
 
     render() {
+        // const {users, isFirst, isLoading, err} = this.state
         const {users, isFirst, isLoading, err} = this.state
         return (
             <div>
@@ -30,7 +31,7 @@ class List extends Component {
                         isFirst ? <h2>欢迎使用，输入关键字，随后点击搜索</h2> :
                             isLoading ? <h2>Loading...</h2> :
                                 err ? <h2 style={{color:'red'}}>{err}</h2> :
-                        this.state.users.map((userObj)=>{
+                        users.map((userObj)=>{
                             return (
                                 <div className="card">
                                     <a href={userObj.html_url} rel="noreferrer" target="_blank">
