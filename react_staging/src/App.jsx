@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {NavLink, Route} from 'react-router-dom'
-import Home from './components/Home'
-import About from './components/About'
-import MyNavLink from './components/MyNavLink'
+// import {NavLink, Route} from 'react-router-dom'
+import { Button } from "antd";
+// import 'antd/dist/antd.css'
+// import Home from './components/Home'
+// import About from './components/About'
+// import MyNavLink from './components/MyNavLink'
 
 class App extends Component {
 
@@ -17,6 +19,7 @@ class App extends Component {
         return (
             <div className="container">
                 HELLO WORLD
+                <Button type="primary">Primary Button</Button>
             </div>
         );
     }

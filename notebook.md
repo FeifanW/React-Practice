@@ -177,9 +177,85 @@ export default withRouter(XXX)
 
 4. 备注：HashRouter可以用于解决一些路径错误相关的问题
 
+##### antd使用
 
+antd4.x文档不详细，可以去看3.x
 
+yarn eject会把react里面webpack的核心配置都给暴露出来
 
+react里面的插件都需要下载、引入、实例化
 
+按需引入：
 
+去官网文档查看，需要对create-react-app的默认配置进行自定义，引入react-app-rewired并修改package.json里的启动配置
+
+在项目的根目录创建一个config-overrides.js用于修改默认配置
+
+```js
+yarn add react-app-rewired customize-cra
+```
+
+##### antd自定义主题
+
+1. 安装依赖
+
+   先安装less和less-loader  react-app-rewired customize-cra babel-plugin-import less less-loader
+
+2. 修改package.json
+
+   ```js
+   "scripts":{
+       "start":"react-app-rewired start",
+       "build":"react-app-rewired build",
+       "test":"react-app-rewired test",
+       "eject":"react-scripts eject",
+   }
+   ```
+
+3. 根目录下创建config-overrides.js
+
+```js
+module.exports = override(
+    fixBabelImports('import',{
+        libraryName:'antd',
+        libraryDirectory:'es',
+        style:true
+    })
+    addLessLoader({
+    	lessOptions:{
+            javascriptEnable: true,
+            modifyVars:{'@primary-color':'orange'}    
+    	}
+    })
+)
+```
+
+备注：不需要在组件里面亲自引入样式了，即import 'antd/dist/antd.css'应该删掉
+
+##### redux
+
+1. redux是专门用于做状态管理的JS库
+2. 作用：集中式管理react应用中多个组件的共享状态
+
+什么情况下使用redux:
+
+1. 某个组件状态，需要让其它组件可以随时拿到（共享）
+2. 一个组件需要改变另一个组件状态（通信）
+3. 总体原则：能不用刘不用，如果不用比较吃力才考虑使用
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/4dc246049eac4c53b137608994ea44cc.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjQzNTIzNA==,size_16,color_FFFFFF,t_70)
+
+store相当于一个指挥者
+
+reducers是执行者，加工状态，需要传入之前的状态
+
+reducer可以做两件事，初始化状态、加工状态
+
+react components相当于客人
+
+action creators相当于服务员
+
+store相当于老板
+
+reducers相当于后厨
 

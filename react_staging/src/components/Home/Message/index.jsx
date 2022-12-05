@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route} from "react-router-dom";
+// import {Route} from "react-router-dom";
 
 class Message extends Component {
     state = {
@@ -19,14 +19,12 @@ class Message extends Component {
                             return (
                                 <li key={msgObj.id}>
                                     {/*<a href={"/xxxxx"}>{msgObj.title}</a>&nbsp;&nbsp;*/}
-                                    <Link to={`/home/message/detail/${msgObj.id}`}>{msgObj.title}</Link>
+                                    {/*<Link to={`/home/message/detail/${msgObj.id}`}>{msgObj.title}</Link>*/}
                                 </li>
                             )
                         })
                     }
                 </ul>
-                {/*声明接收params参数*/}
-                {/*<Route path="/home/message/detail/:id/:title" component={Detail}></Route>*/}
             </div>
 
         );
