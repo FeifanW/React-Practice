@@ -259,3 +259,155 @@ store相当于老板
 
 reducers相当于后厨
 
+##### redux的使用
+
+在src目录下，新建一个redux文件夹，里面新建一个count_reducer.js和store.js
+
+store.js
+
+```js
+// 该文件专门用于暴露一个store对象，整个应用只有一个store对象
+// 引入createStore，专门用于创建redux中最核心的store对象
+import { createStore } form 'redux'
+// 引入为Count组件服务的reducer
+import countReducer from './count_reducer'
+
+export default createStore(countReducer)
+
+```
+
+count_reducer.js
+
+```js
+// 该文件时用于创建一个为count组件服务的reducer，reducer的本质就是一个函数
+// reducer会接到两个参数，分别为之前的状态（preState）动作对象（action）
+export default function countReducer(preState,action){
+    const {type,data} = action
+    // 根据type决定如何加工数据
+    switch(type) {
+        case 'increment':
+            return preState + data
+        case 'decrement':
+            return preState - data
+        default:
+            return 0
+    }
+}
+```
+
+在需要的组件里面引用
+
+```js
+import { state } form 'xxx'       //redux的store
+// 一开始初始化的时候没有type
+// 在函数里面调用方法
+export default class Count extends Component {
+    componentDidMount(){  // redux中任意状态变化都会调用这个回调
+        // 检测redux中任意状态的变化，只要变化就调用render
+        store.subscribe(()=>{
+            this.setState({})
+        })
+    }
+    increment = ()=>{
+        const {value} = this.selectNumber
+        store.dispatch({type:'increment',data:value*1})
+    }    
+}
+```
+
+this.setState可以帮忙改状态，还会重新render一下
+
+```react
+// redux更新可以放在index.js里面
+import store from './redux/store'
+store.subscribe(()=>{
+    ReactDOM.render(<App/>,document.getElementById('root'))
+})
+```
+
+##### redux简单总结
+
+1. 去除Count组件自身状态
+
+2. src下建立：
+
+   -redux
+
+   ​	-store.js
+
+   ​	-count_reducer.js
+
+3. store.js
+
+   - 引入redux中的createStore函数，创建一个store
+   - createStore调用时要传入一个为其服务的reducer
+   - 记得暴露store对象
+
+4. count_reducer.js
+
+   - reducer的本质是一个函数，接收：preState，action 返回加工后的状态
+   - reducer有两个作用：初始化状态，加工状态
+   - reducer被第一次调用时，是store自动触发的，传递的preState是undefined
+
+5. 在index.js中检测store中状态的改变，一旦发生改变重新渲染\<App/>
+
+   备注：redux只负责管理状态，至于状态的改变驱动着页面的展示，要靠我们自己写
+
+**count_action.js**
+
+```js
+// 专门为Count组件生成action对象
+export const createIncrementAction = data => ({type:'increment',data})
+export const createDecrementAction = data => ({type:'decrement',data})
+```
+
+在组件中使用的时候，直接
+
+```js
+// 引入这个count_action.js
+```
+
+**constant.js**
+
+```js
+// redux下面定义常量的地方，防止在redux的其他文件里面写错
+export const INCREMENT = 'increment'
+```
+
+##### 异步action
+
+action:
+
+1. Object{}  同步
+2. function 异步
+
+同步action，action的值为Object类型的一般对象
+
+异步action，就是action的值为函数
+
+异步action，就是action的值为函数
+
+```js
+// 在count_action里面添加异步，就是action的值为函数，异步action中一般都会调用同步action，异步action不是必须要用的
+export const createIncrementAsyncAction = (data,time) => {
+    return (dispatch)=>{
+        setTimeout(()=>{
+            dispatch(createIncrementAction(data))
+        },time)
+    }
+}
+```
+
+传给store会报错，需要一个中间件
+
+npm i redux-thunk -S
+
+在store.js里面引入
+
+```js
+import thunk from 'redux-thunk'
+import {createStore, applyMiddleware} from 'redux'
+// 暴露store
+export default createStore(countReducer,applyMiddleware(thunk))
+```
+
