@@ -411,3 +411,64 @@ import {createStore, applyMiddleware} from 'redux'
 export default createStore(countReducer,applyMiddleware(thunk))
 ```
 
+##### react-redux
+
+react官方出的
+
+1. 所以的UI组件都应该包裹一个容器组件，他们是父子关系
+2. 容器组件是真正和redux打交道的，里面可以随意的使用redux的api
+3. UI组件中不能使用任何redux的api
+4. 容器组件会传给UI组件
+   - redux中所保存的状态
+   - 用于操作状态的方法
+5. 备注：容器给UI传递：状态、操作状态的方法，均通过props传递
+
+![img](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-blog.csdnimg.cn%2F2021030814573269.png%3Fx-oss-process%3Dimage%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2pjb2Rlcnk%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70&refer=http%3A%2F%2Fimg-blog.csdnimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672878973&t=6d2888484002264da00d85f1359afbce)
+
+Count（UI组件）放到components里面，Count（容器组件）放到containers里面
+
+**react-redux基本使用**
+
+- 明确两个概念
+
+  - UI组件：不能使用任何redux和api，只负责页面的呈现、交互等
+  - 容器组件：负责和redux通信，将结果交给UI组件
+
+- 如何创建一个容器组件-靠react-redux的connect函数
+
+  connect(mapStateToProps, mapDispatchToProps)(UI组件)
+
+  - mapStateToProps:映射状态，返回值是一个对象
+  - mapDispatchToProps:映射操作状态的方法
+
+- 备注1：容器组件中的store是靠props传进去的，而不是在容器组件中直接引入
+
+- 备注2：mapDispatchToProps，也可以是一个对象，api自动调用dispatch
+
+##### react-redux优化
+
+1. 容器组件和UI组件整合成一个文件
+
+2. 无需自己给容器组件传递store，给\<App/>包裹一个\<Provider store={store}>即可
+
+3. 使用了react-redux后也不用再自己检测redux中状态的改变了，容器组件可以自动完成这个工作
+
+4. mapDispatchToProps也可以简单的写成一个对象
+
+5. 一个组件要和redux"打交道"需要经过几步：
+
+   - 定义好UI组件---不暴露
+
+   - 引入connect生成一个容器组件，并暴露，写法如下：
+
+     ```js
+     connect(
+     	state => ({key:value})
+         {key:xxxxAction}
+     )(UI组件)
+     ```
+
+   - 在UI组件中通过this.props.xxxx读取和操作状态
+
+
+
