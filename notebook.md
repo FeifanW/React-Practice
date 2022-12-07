@@ -470,5 +470,49 @@ Count（UI组件）放到components里面，Count（容器组件）放到contain
 
    - 在UI组件中通过this.props.xxxx读取和操作状态
 
+**react-redux练习**
 
+containers文件夹里面，通常actions里面放一堆文件、reducers里面放一些文件，constant.js是一个单独的文件store.js也是一个单独的文件
+
+##### 案例react-redux数据共享版
+
+当有多个reducer的时候，需要在reducer里面引入
+
+```js
+import {combineReducers} from 'redux'
+const allReducer = combineReducers({
+    he:countReducer,
+    rens:personReducer
+})
+// 暴露store
+export default createStore(allReducer,applyMiddleware(thunk))
+```
+
+1. 定义一个person组件和count组件通过redux共享数据
+2. 为person组件编写，reducer、action配置constant常量
+3. 重点Person的reducer和Count的Reducer要使用combineReducers进行合并，合并后的总状态是一个对象
+4. 交给store的总是reducer，最后注意在组件中取出状态的时候，记得取到位
+
+##### 纯函数
+
+1. 同样的输入(实参)，必定得到同样的输出（返回）
+2. 必须遵守以下约束
+   - 不得改写参数数据
+   - 不会产生任何副作用，例如网络请求，输入和输出设备
+   - 不能调用Date.now()或者Math.random()等不纯的方法
+3. redux的reducer函数必须是一个纯函数
+
+##### redux开发者工具
+
+安装chrome插件redux devtools
+
+项目里面安装redux-devtools-extension
+
+```js
+import {composeWithDevTools} from 'redux-devtools-extension'
+
+export default createStore(allReducer,composeWithDevTools(applyMiddleware(thunk)))
+```
+
+#### react扩展
 
