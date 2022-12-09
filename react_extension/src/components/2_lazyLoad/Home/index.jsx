@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
-import Demo from './components/6_optimize/index'
 
-
-class App extends Component {
+class Index extends Component {
     render() {
         return (
             <div>
-                <Demo/>
+                <h2>我是About组件</h2>
             </div>
         );
     }
 }
 
-export default App;
+export default Index;
